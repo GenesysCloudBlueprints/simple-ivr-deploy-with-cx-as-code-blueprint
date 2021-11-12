@@ -134,11 +134,3 @@ resource "genesyscloud_architect_ivr" "mysimple_ivr" {
   depends_on         = [genesyscloud_telephony_providers_edges_did_pool.mygcv_number]
 }
 
-module "AwsEventBridgeIntegration" {
-  source              = "git::https://github.com/GenesysCloudDevOps/aws-event-bridge-module.git?ref=v0.0.2"
-  aws_account_id      = "335611188682"
-  aws_account_region  = "us-west-2"
-  event_source_suffix = "-sample-eb1"
-  topic_filters       = ["v2.audits.entitytype.{id}.entityid.{id}", "v2.analytics.flow.{id}.aggregates"]
-}
-
