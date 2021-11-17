@@ -6,10 +6,10 @@ icon: blueprint
 image: images/SimpleIvrFlowDeploy.png
 category: 5
 summary: |
-  This Genesys Cloud Developer Blueprint provides a basic example of how to deploy a touch-tone based IVR using Terraform, CX as Code, and Archy.
+  This Genesys Cloud Developer Blueprint provides a simple example of how to deploy a touch-tone based IVR using Terraform, CX as Code, and Archy.  
 ---
 
-This Genesys Cloud Developer Blueprint provides a basic example of how to deploy a touch-tone based IVR using Terraform, CX as Code, and Archy.
+This Genesys Cloud Developer Blueprint provides a simple example of how to deploy a touch-tone based IVR using Terraform, CX as Code, and Archy.
 
 This blueprint demonstrates how to:
 
