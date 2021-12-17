@@ -47,7 +47,7 @@ The following are the deployment phases of Genesys Cloud objects within this flo
 
 ## Solution components
 
-* **Genesys Cloud** - A suite of Genesys Cloud services for enterprise-grade communications, collaboration, and contact center management. In this solution, you use an Architect inbound email flow, along with a Genesys Cloud integration, data action, queues, and email configuration.
+* **Genesys Cloud** - A suite of Genesys Cloud services for enterprise-grade communications, collaboration, and contact center management. In this solution, you use an Architect IVR and in-bound call flows.
 * **Archy** - A Genesys Cloud command-line tool for building and managing Architect flows.
 * **CX as Code** - A Genesys Cloud Terraform provider that provides a command line interface for declaring core Genesys Cloud objects.
 
