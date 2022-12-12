@@ -1,7 +1,6 @@
 inboundCall:
   name: SimpleFinancialIvr
   description: SimpleFinancialIvr
-  division: Home
   startUpRef: "/inboundCall/menus/menu[Main Menu_10]"
   defaultLanguage: en-us
   supportedLanguages:

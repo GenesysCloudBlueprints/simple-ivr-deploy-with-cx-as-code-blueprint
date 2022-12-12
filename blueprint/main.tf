@@ -1,13 +1,14 @@
 terraform {
+   backend "pg" {
+    conn_str = "postgres://postgres:tfbackend123@localhost/terraform_backend?sslmode=disable"
+  }
   required_providers {
     genesyscloud = {
       source = "mypurecloud/genesyscloud"
     }
   }
-}
 
-provider "genesyscloud" {
-  sdk_debug = true
+  
 }
 
 resource "genesyscloud_user" "sf_johnsmith" {
@@ -78,7 +79,7 @@ resource "genesyscloud_routing_queue" "queue_K401" {
   name                     = "Simple Financial 401K queue"
   description              = "Simple Financial 401K questions and answers"
   acw_wrapup_prompt        = "MANDATORY_TIMEOUT"
-  acw_timeout_ms           = 300000
+  acw_timeout_ms           = 300001
   skill_evaluation_method  = "BEST"
   auto_answer_only         = true
   enable_transcription     = true
@@ -98,31 +99,22 @@ resource "genesyscloud_routing_queue" "queue_K401" {
 ###
 #  Archy Work
 ###
-resource "null_resource" "deploy_archy_flow" {
+resource "genesyscloud_flow" "deploy_archy_flow" {
   depends_on = [
     genesyscloud_routing_queue.queue_K401,
     genesyscloud_routing_queue.queue_ira
   ]
 
-  provisioner "local-exec" {
-    command = "  archy publish --forceUnlock --file SimpleFinancialIvr_v2-0.yaml --clientId $GENESYSCLOUD_OAUTHCLIENT_ID --clientSecret $GENESYSCLOUD_OAUTHCLIENT_SECRET --location $GENESYSCLOUD_ARCHY_REGION  --overwriteResultsFile --resultsFile results.json "
-  }
+    filepath          = "SimpleFinancialIvr_v2-0.yaml"
+    file_content_hash = filesha256("SimpleFinancialIvr_v2-0.yaml")     
 }
-
-data "genesyscloud_flow" "mysimpleflow" {
-  depends_on = [
-    null_resource.deploy_archy_flow
-  ]
-  name = "SimpleFinancialIvr"
-}
-
 resource "genesyscloud_telephony_providers_edges_did_pool" "mygcv_number" {
   start_phone_number = "+19205422729"
   end_phone_number   = "+19205422729"
   description        = "GCV Number for inbound calls"
   comments           = "Additional comments"
   depends_on = [
-    null_resource.deploy_archy_flow
+    genesyscloud_flow.deploy_archy_flow
   ]
 }
 
@@ -130,7 +122,7 @@ resource "genesyscloud_architect_ivr" "mysimple_ivr" {
   name               = "A simple IVR"
   description        = "A sample IVR configuration"
   dnis               = ["+19205422729", "+19205422729"]
-  open_hours_flow_id = data.genesyscloud_flow.mysimpleflow.id
+  open_hours_flow_id = genesyscloud_flow.deploy_archy_flow.id
   depends_on         = [genesyscloud_telephony_providers_edges_did_pool.mygcv_number]
 }
 
