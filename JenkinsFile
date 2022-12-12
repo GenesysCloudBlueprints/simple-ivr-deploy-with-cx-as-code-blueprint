@@ -21,7 +21,7 @@ pipeline {
     stages {
         stage("Prepare") {
             steps {
-               sh "apt-get install wget" 
+               sh "sudo apt-get -y install wget" 
                sh "wget https://releases.hashicorp.com/terraform/1.3.6/terraform_1.3.6_linux_amd64.zip && unzip terraform_1.3.6_linux_amd64.zip" 
                sh "mv terraform /usr/bin/terraform"
                sh "terraform version"
