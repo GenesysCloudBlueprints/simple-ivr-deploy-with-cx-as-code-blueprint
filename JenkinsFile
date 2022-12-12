@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 pipeline {
-    agent { node { label 'swarm-ci' } }
+    agent { node { /*label 'swarm-ci'*/ } }
 
   //  environment {
         // TEST_PREFIX = "test-IMAGE"
