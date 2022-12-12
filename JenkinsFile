@@ -21,7 +21,7 @@ pipeline {
     stages {
         stage("Prepare") {
             steps {
-               sh "echo 'I am in prepare" 
+               sh "terraform init" 
                //bitbucketStatusNotify buildState: "INPROGRESS"
             }
         }
