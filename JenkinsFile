@@ -22,8 +22,8 @@ pipeline {
         stage("Prepare") {
             steps {
                sshagent(credentials: ['jenkins']) {
-                 sh "apk add terraform --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community"
-                 sh "terraform version"
+                 sh "wget"
+              
                }
             }
         }
